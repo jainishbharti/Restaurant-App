@@ -16,9 +16,10 @@ import com.datagrokr.restaurant.entity.Reservation;
 public class ReservationRepository {
 	
 	EntityManager entityManager;
+	EntityManagerFactory emf;
 	
 	public ReservationRepository() {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("reservation_pu");
+		emf = Persistence.createEntityManagerFactory("reservation_pu");
 		entityManager = emf.createEntityManager();	
 	}
 	
@@ -102,6 +103,7 @@ public class ReservationRepository {
 	}
 	
 	public void close() {
+		emf.close();
 		entityManager.close();
 	}
 

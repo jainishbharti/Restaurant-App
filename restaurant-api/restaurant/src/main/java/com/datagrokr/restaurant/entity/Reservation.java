@@ -1,33 +1,51 @@
 package com.datagrokr.restaurant.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Reservation {
+public class Reservation implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer reservationId;
 	private String userName;
 	private String mobile;
 	private Integer seats;
 	private LocalDateTime timeOfReservation;
 	
+	@OneToOne
+	private ReservationTable table;
+	
 	public Reservation() {}
 
 	public Reservation(Integer reservationId, String userName, String mobile, Integer seats,
-			LocalDateTime timeOfReservation) {
+			LocalDateTime timeOfReservation, ReservationTable table) {
 		super();
 		this.reservationId = reservationId;
 		this.userName = userName;
 		this.mobile = mobile;
 		this.seats = seats;
 		this.timeOfReservation = timeOfReservation;
+		this.table = table;
+	}
+
+	public ReservationTable getTable() {
+		return table;
+	}
+
+	public void setTable(ReservationTable table) {
+		this.table = table;
 	}
 
 	public Integer getReservationId() {
