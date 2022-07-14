@@ -28,9 +28,13 @@ public class ReservationTableRepository {
 		CriteriaQuery<ReservationTable> all = cq.select(root)
 				.where(cb.equal(root.get("status"), "vacant"), cb.equal(root.get("capacity"), 4));
 		TypedQuery<ReservationTable> allQuery = entityManager.createQuery(all);
-		ReservationTable vacantTable = (ReservationTable) allQuery.getResultList().get(0);
-		if(vacantTable == null) return null;
-		else return vacantTable;
+		try {
+			ReservationTable vacantTable = (ReservationTable) allQuery.getResultList().get(0);
+			if(vacantTable == null) return null;
+			else return vacantTable;
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}	
 	}
 	
 	public ReservationTable getTwoSeaterVacantTables() {
@@ -40,10 +44,13 @@ public class ReservationTableRepository {
 		CriteriaQuery<ReservationTable> all = cq.select(root)
 				.where(cb.equal(root.get("status"), "vacant"), cb.equal(root.get("capacity"), 2));
 		TypedQuery<ReservationTable> allQuery = entityManager.createQuery(all);
-		ReservationTable vacantTable = (ReservationTable) allQuery.getResultList().get(0);
-		System.out.println(vacantTable);
-		if(vacantTable == null) return null;
-		else return vacantTable;
+		try {
+			ReservationTable vacantTable = (ReservationTable) allQuery.getResultList().get(0);
+			if(vacantTable == null) return null;
+			else return vacantTable;
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}		
 	}
 	
 	public void engageTableById(Integer tableId) {
@@ -59,9 +66,12 @@ public class ReservationTableRepository {
 		entityManager.getTransaction().begin();
 		foundTable.setStatus("vacant");
 		entityManager.persist(foundTable);
-		entityManager.getTransaction().commit();
-
-		
+		entityManager.getTransaction().commit();	
+	}
+	
+	public void close() {
+		entityManager.close();
+		emf.close();
 	}
 
 }

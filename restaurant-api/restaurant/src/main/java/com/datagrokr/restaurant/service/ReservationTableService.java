@@ -29,4 +29,8 @@ public class ReservationTableService {
 	public void disengageTableById(Integer tableId) {
 		reservationTableRepo.disengageTableById(tableId);
 	}
+	
+	public void close() {
+		reservationTableRepo.close();
+	}
 }
