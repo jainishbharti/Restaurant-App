@@ -21,6 +21,13 @@ public class ReservationTableRepository {
 		entityManager = emf.createEntityManager();	
 	}
 	
+	public ReservationTable addReservationTable(ReservationTable reservationTable) {
+		entityManager.getTransaction().begin();
+		entityManager.persist(reservationTable);
+		entityManager.getTransaction().commit();
+		return reservationTable;
+	}
+	
 	public ReservationTable getFourSeaterVacantTables() {
 		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 		CriteriaQuery<ReservationTable> cq = cb.createQuery(ReservationTable.class);

@@ -40,6 +40,16 @@ public class Reservation implements Serializable{
 		this.table = table;
 	}
 
+	public Reservation(String userName, String mobile, Integer seats, LocalDateTime timeOfReservation,
+			ReservationTable table) {
+		super();
+		this.userName = userName;
+		this.mobile = mobile;
+		this.seats = seats;
+		this.timeOfReservation = timeOfReservation;
+		this.table = table;
+	}
+
 	public ReservationTable getTable() {
 		return table;
 	}

@@ -12,6 +12,10 @@ public class ReservationTableService {
 		reservationTableRepo = new ReservationTableRepository();
 	}
 	
+	public ReservationTable addReservationTable(ReservationTable reservationTable) {
+		return reservationTableRepo.addReservationTable(reservationTable);
+	}
+	
 	public ReservationTable getFourSeaterVacantTable() {
 		ReservationTable result = reservationTableRepo.getFourSeaterVacantTables();
 		return result;

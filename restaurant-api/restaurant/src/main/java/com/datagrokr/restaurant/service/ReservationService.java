@@ -77,21 +77,12 @@ public class ReservationService {
     	
     	   if(reservation.getSeats() != 0 && reservation.getSeats() < 2) reservation.setSeats(2);
            if(reservation.getSeats() > 2 && reservation.getSeats() < 4) reservation.setSeats(4);
-//    	   if(reservationRepo.noOfReservations().equals("10")){
-//               return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! We are fully booked").build();
-//           } else if(reservation.getSeats() == 2 && reservationRepo.noOfTwoSeatReservations().equals("5")){
-//               return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! No table for two available tonight!").build();
-//           } else if(reservation.getSeats() == 4 && reservationRepo.noOfFourSeatReservations().equals("5")){
-//               return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! No table for four available tonight!").build();
-//           } else if(reservation.getSeats() != 2 && reservation.getSeats() != 4){
-//               return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("You can book the table for 2 people or 4 people only").build();
-//           } else 
+ 
         	   if(!reservation.getTimeOfReservation().toLocalDate().isEqual(LocalDate.now()) || reservation.getTimeOfReservation().toLocalTime().isAfter(LocalTime.now())){
                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Bookings allowed for current day only!").build();
            } else {
         	   
         	   Reservation olderReservation = reservationRepo.findByReservationId(reservation.getReservationId());
-        	   System.out.println(olderReservation);
            	if((reservation.getSeats() > olderReservation.getSeats() && reservationTableRepo.getFourSeaterVacantTables() != null) || 
            			(reservation.getSeats() < olderReservation.getSeats() && reservationTableRepo.getTwoSeaterVacantTables() != null)) {
            		reservationTableRepo.disengageTableById(olderReservation.getTable().getTableId());
@@ -112,16 +103,6 @@ public class ReservationService {
                 else return Response.status(Response.Status.OK).entity(updatedReservation).build();
            	} else return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! No seat extension would be possible available tonight! You can to continue with the previously alloted seats.").build();
 
-           	
-//           	if(reservation.getSeats() < olderReservation.getSeats() && reservationTableRepo.getTwoSeaterVacantTables() != null) {
-//           		reservationTableRepo.disengageTableById(olderReservation.getTable().getTableId());
-//           		if(reservation.getSeats() == 2) {
-//               		ReservationTable vacantTable = reservationTableRepo.getTwoSeaterVacantTables();
-//               		reservation.setTable(vacantTable);
-//               		reservationTableRepo.engageTableById(vacantTable.getTableId());
-//               	}
-//           	} else return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! No table for two available tonight! You can to continue with the previously alloted seats.").build();
-           	
                Reservation updatedReservation = reservationRepo.updateReservation(reservation);
                if(updatedReservation == null) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Something went wrong while updating reservation. Please try again!").build();
                else return Response.status(Response.Status.OK).entity(updatedReservation).build();

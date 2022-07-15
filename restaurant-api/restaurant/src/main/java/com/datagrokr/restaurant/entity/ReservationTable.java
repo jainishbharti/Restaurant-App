@@ -15,6 +15,7 @@ public class ReservationTable {
 	public ReservationTable() {}
 	
 	
+	
 
 	public ReservationTable(Integer tableId, String tableType, Integer capacity, String status) {
 		super();
