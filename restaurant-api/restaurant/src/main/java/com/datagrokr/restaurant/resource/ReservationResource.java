@@ -37,6 +37,13 @@ public class ReservationResource {
 		return Response.status(Response.Status.OK).entity(reservation).build();
 	}
 	
+	@GET
+	@Path("/getbyMobile/{contact}")
+	public Response getReservationsByMobileNo(@PathParam("contact") String mobileNumber) {
+		List<Reservation> reservations = reservationService.getReservationsByMobile(mobileNumber);
+		return Response.status(Response.Status.OK).entity(reservations).build();
+	}
+	
     @POST
     public Response addReservation(Reservation reservation){
         return reservationService.addReservation(reservation);
