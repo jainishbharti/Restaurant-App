@@ -118,9 +118,15 @@ public class ReservationService {
     			.build();
     }
     
+    public List<Reservation> getReservationsByMobile(String mobile) {
+    	return reservationRepo.findByMobile(mobile);
+	}
+    
     public void close() {
     	reservationRepo.close();
     	reservationTableRepo.close();
     }
+
+	
 
 }
