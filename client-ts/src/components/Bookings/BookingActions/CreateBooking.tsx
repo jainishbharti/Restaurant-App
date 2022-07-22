@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { setSubmittingFunction } from "../Forms/BookingForm";
 import axios from "axios";
 import { useState } from "react";
+import { Alert, Stack } from "@mui/material";
 
 const validationSchema = Yup.object({
   userName: Yup.string().required("Your name is required!"),
@@ -19,8 +20,6 @@ const initialValues = {
   seats: "",
   timeOfReservation: "",
 };
-
-
 
 const fields = [
   {
@@ -46,10 +45,8 @@ const fields = [
 ];
 
 export const CreateBooking = () => {
-
-  const [message, setMessage] = useState({message: ""});
-  const [error, setError] = useState({error: ""})
-
+  const [message, setMessage] = useState({ message: "" });
+  const [error, setError] = useState({ error: "" });
 
   const onSubmit = (
     values: initialValueProps,
@@ -66,28 +63,51 @@ export const CreateBooking = () => {
       axios
         .post("/bookings", formData)
         .then((res) => {
-          if(res.status === 202){
-            // console.log('Response from server: ', res.data);
-            setMessage({ message: "Reservation created successfully!"})
+          if (res.status === 202) {
+            setMessage({ message: "Reservation created successfully!" });
           }
         })
         .catch((err) => {
-          if(err.response.status === 500){
-            setError({error: err.response.data})
-          } else{
-            setError({error: "Something went wrong. Try booking again!"})
+          if (err.response.status === 500) {
+            setError({ error: err.response.data });
+          } else {
+            setError({ error: "Something went wrong. Try booking again!" });
           }
-         
         });
     }
-  
+
     setSubmitting(false);
   };
 
   return (
     <div>
-      {error.error ? error.error : ""}
-      {message.message ? message.message : ""}
+      {error.error ? (
+        <Stack
+          sx={{ width: "18%", margin: "auto", marginTop: "1rem" }}
+          spacing={1}
+        >
+          <Alert severity="warning" onClose={() => setError({ error: "" })}>{error.error}</Alert>
+        </Stack>
+      ) : (
+        ""
+      )}
+      {message.message ? (
+        <Stack
+          sx={{ width: "18%", margin: "auto", marginTop: "1rem" }}
+          spacing={1}
+        >
+          <Alert
+            onClose={() => {
+              setMessage({ message: "" });
+            }}
+          >
+            {message.message}
+          </Alert>
+        </Stack>
+      ) : (
+        ""
+      )}
+
       <BookingForm
         handleSubmit={onSubmit}
         initialValues={initialValues}

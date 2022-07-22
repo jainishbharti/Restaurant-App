@@ -2,6 +2,7 @@ import { Fragment, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { BookingProp } from "../BookingActions/UpdateBooking";
 
 export type initialValueProps = {
   userName?: string;
@@ -12,6 +13,7 @@ export type initialValueProps = {
 
 export type setSubmittingFunction = {
   setSubmitting: (value: boolean) => void;
+  resetForm: () => void;
 };
 
 type BookingFormProps = {
@@ -21,6 +23,7 @@ type BookingFormProps = {
   ) => void;
   initialValues: initialValueProps;
   validationSchema: {};
+  updateValues?: BookingProp;
   fields: {
     name: string;
     type: string;
@@ -31,10 +34,11 @@ type BookingFormProps = {
 export const BookingForm = ({
   handleSubmit,
   initialValues,
+  updateValues,
   validationSchema,
   fields
 }: BookingFormProps) => {
-  const [error, setError] = useState("");
+  const [error] = useState("");
 
   return (
     <div>
@@ -88,7 +92,7 @@ export const BookingForm = ({
                       }}
                     >
                       <option value="">No.of Seats</option>
-                      <option  value={parseInt("1")}>1</option>
+                      <option value={parseInt("1")}>1</option>
                       <option value={parseInt("2")}>2</option>
                       <option value={parseInt("3")}>3</option>
                       <option value={parseInt("4")}>4</option>
@@ -111,7 +115,7 @@ export const BookingForm = ({
               variant="contained"
               sx={{ marginTop: "1rem", marginBottom: "1rem" }}
             >
-              Book Table
+              Submit
             </Button>
           </Form>
         )}

@@ -28,7 +28,7 @@ export const LandingPage = () => {
             sx={{ marginRight: "1em" }}
           >
             <Link href="/bookings/update" underline="none">
-            Update Booking
+              Update Booking
             </Link>
           </Button>
           <Button
@@ -36,13 +36,24 @@ export const LandingPage = () => {
             variant="outlined"
             sx={{ marginRight: "1em" }}
           >
-             <Link href="/bookings" underline="none">
-            Fetch Bookings
+            <Link href="/bookings" underline="none">
+              Fetch All Bookings
             </Link>
           </Button>
+
+          <Button
+            color="primary"
+            variant="outlined"
+            sx={{ marginRight: "1em" }}
+          >
+             <Link href="/bookings/mobile" underline="none">
+            Fetch Bookings By Mobile
+            </Link>
+          </Button>
+
           <Button color="error" variant="outlined" sx={{ marginRight: "1em" }}>
-          <Link href="/bookings/delete" underline="none">
-            Delete Booking
+            <Link href="/bookings/delete" underline="none">
+              Delete Booking
             </Link>
           </Button>
         </Box>

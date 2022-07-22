@@ -4,23 +4,25 @@ import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 type BookingCardProps = {
   booking: {
+    reservationId: number;
     mobile: string;
     seats: number;
     table: {
-        tableId: number;
-        tableType: string;
-        status: string;
-        capacity: number
+      tableId: number;
+      tableType: string;
+      status: string;
+      capacity: number;
     };
     userName: string;
   };
 };
 
 export const BookingCard = ({ booking }: BookingCardProps) => {
-  const { mobile, seats, table, userName } = booking;
+  const { reservationId, mobile, seats, table, userName } = booking;
   return (
     <Box>
       <Card sx={{ width: 300, margin: "2rem", textAlign: "left" }}>
@@ -39,9 +41,17 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
             <br />
             Ideal for {seats === 4 ? "Family" : "Couple"}
           </Typography>
+          <Typography variant="caption">
+            Slot: 8:00PM - 11:00PM
+            <br />
+          </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Slot: 8:00PM - 11:00PM</Button>
+          <Link to={`/bookings/update/${reservationId}`}>
+            <Button size="small" variant="outlined">
+              Edit Booking
+            </Button>
+          </Link>
         </CardActions>
       </Card>
     </Box>

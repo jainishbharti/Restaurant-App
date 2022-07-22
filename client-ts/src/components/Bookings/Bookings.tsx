@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BookingCard } from "../BookingCard";
+import { BookingCard } from "./BookingCard";
 import axios from "axios";
 
 export const Bookings = () => {
