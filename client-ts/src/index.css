@@ -1,0 +1,201 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bg{
+  margin-top: 0;
+  padding-top: 5rem;
+  width: 99.1vw;
+  height: 78vh;
+  opacity: 0.95;
+  z-index: -100;
+  background: url('./restaurant-bg.jpg');
+  background-position: center;
+}
+
+.float{
+  padding: 2rem;
+  width: 50%;
+  height: 70%;
+  margin: auto;
+  background-color: rgba(235, 226, 226, 0.909);
+  border-radius: 19px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.err-msg {
+  text-align: start;
+  color: red;
+  width: 300px;
+  font-weight: 550;
+  margin-top: -10px;
+  margin-bottom: 1em;
+}
+
+.form{
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+select,
+textarea {
+  display: block;
+  width: 300px;
+  padding: 16px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px; 
+}
+
+.flex{
+  max-width: 80vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.landingPage{
+  opacity: 100;
+  z-index: 100;
+}
+
+.service-flex{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.services-fragment{
+  background-image: url('https://mui.com/static/themes/onepirate/productCurvyLines.png');
+  background-color: rgba(223, 252, 252, 0.29);
+  padding: 3rem 1rem;
+}
+
+.smoking-hero{
+  background-image: url('https://mui.com/static/themes/onepirate/productCurvyLines.png');
+  background-color: rgba(223, 252, 252, 0.29);
+  padding: 1.8rem 1rem;
+}
+
+section{
+  background-image: url('https://mui.com/static/themes/onepirate/productCurvyLines.png');
+  background-color: rgba(233, 241, 241, 0.29);
+  height: 68vh;
+}
+
+.footer{
+  position:static;
+  width: 100%;
+  bottom: 0;
+  left:0;
+  right: 0;
+  top: auto
+}
+
+@media only screen and (max-width: 600px) {
+  .banner{
+    padding: 1.5em;
+  }
+  .banner div{
+    font-size: 18px;
+  }
+
+  .banner button{
+    margin: 18px;
+    padding: 5px 8px;
+  }
+
+  hr{
+    width: 50px!important;
+  }
+
+  .bg{
+    margin-top: -3.9rem;
+    padding-top: 0;
+    height: 30vh;
+  }
+
+  .desc{
+    display: none
+  }
+
+  .services-fragment{
+    margin-top: 1em 1em;
+    padding: 5px 3px;
+  }
+
+  .services-fragment div{
+    font-size: 18px;
+  }
+
+  .service-flex{
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .service-flex div{
+    height: auto;
+    width: auto;
+    font-size: 18px;
+    border-radius: 4px;
+    margin: 2px 5px;
+    padding: 2px 3px;
+  }
+  .service-flex svg{
+    display: none;
+  }
+  .service-flex h6{
+    padding: 2px 2px;
+    margin: 0;
+    font-size: 12px;
+  }
+
+  .food{
+    padding: 2em;
+    margin: 0;
+  }
+
+  .food h2{
+    font-size: 18px!important;
+    padding: 0;
+    margin: 0;
+  }
+
+  .smoking-hero{
+    padding: 10px;
+    margin: 0;
+  }
+
+  .smoking-hero button span{
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .lang{
+    display: none;
+  }
+  
+}
