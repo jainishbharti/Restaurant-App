@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { LandingPage } from "./pages/LandingPage";
+// import { LandingPage } from "./pages/LandingPage";
 import { CreateBooking } from "./components/Bookings/BookingActions/CreateBooking";
 import { DeleteBooking } from "./components/Bookings/BookingActions/DeleteBooking";
 import { Bookings } from "./components/Bookings/Bookings";
@@ -8,12 +8,12 @@ import { MobileBookings } from "./components/Bookings/MobileBookings";
 import { UpdateBooking } from "./components/Bookings/BookingActions/UpdateBooking";
 import { NavBar } from "./components/NavBar/NavBar";
 import { HomePage } from "./pages/HomePage";
+import AppFooter from "./components/Footer/AppFooter";
 
 function App() {
   return (
     <div className="App">
       <NavBar />
-      <LandingPage />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -25,6 +25,7 @@ function App() {
           <Route path="/bookings/delete" element={<DeleteBooking /> } />
         </Routes>
       </BrowserRouter>
+      <AppFooter />
     </div>
   );
 }

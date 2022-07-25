@@ -4,7 +4,7 @@ import { initialValueProps, setSubmittingFunction } from "../Forms/BookingForm";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Alert, Stack } from "@mui/material";
+import { Alert, Button, Stack, Typography } from "@mui/material";
 
 const validationSchema = Yup.object({
   userName: Yup.string().required("Your name is required!"),
@@ -137,10 +137,29 @@ export const UpdateBooking = () => {
   }
 
   return (
-    <div>
+    <section>
+      <Button
+          sx={{
+            border: "2px solid darkgray",
+            borderRadius: 2,
+            height: "auto",
+            py: 1,
+            px: 2,
+            marginTop: '2rem'
+          }}
+        >
+          <Typography
+            variant="h6"
+            component="span"
+            sx={{ fontWeight: 550, color: "darkslategray" }}
+          >
+            Modify Reservation
+          </Typography>
+        </Button>
+          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
       {error.error ? (
         <Stack
-          sx={{ width: "35%", margin: "auto", marginTop: "1rem" }}
+          sx={{ width: "15%", margin: "auto", marginTop: "1rem" }}
           spacing={1}
         >
           <Alert severity="warning" onClose={() => setError({ error: "" })}>{error.error}</Alert>
@@ -150,7 +169,7 @@ export const UpdateBooking = () => {
       )}
       {message.message ? (
         <Stack
-          sx={{ width: "35%", margin: "auto", marginTop: "1rem" }}
+          sx={{ width: "15%", margin: "auto", marginTop: "1rem" }}
           spacing={1}
         >
           <Alert
@@ -175,6 +194,6 @@ export const UpdateBooking = () => {
       ) : (
         "Loading..."
       )}
-    </div>
+    </section>
   );
 };

@@ -4,6 +4,7 @@ import { BookingCard } from "./BookingCard";
 import { BookingForm } from "./Forms/BookingForm";
 import * as Yup from "yup";
 import { initialValueProps, setSubmittingFunction } from "./Forms/BookingForm";
+import { Button, Typography } from "@mui/material";
 
 type BookingProp = {
     mobile: string;
@@ -71,8 +72,26 @@ const validationSchema = Yup.object({
     }
   
     return (
-      <div>
-        <h2>Get Bookings By Mobile: </h2>
+      <section>
+        <Button
+          sx={{
+            border: "2px solid darkgray",
+            borderRadius: 2,
+            height: "auto",
+            py: 1,
+            px: 2,
+            marginTop: '2rem'
+          }}
+        >
+          <Typography
+            variant="h6"
+            component="span"
+            sx={{ fontWeight: 550, color: "darkslategray" }}
+          >
+            Get Your Bookings
+          </Typography>
+        </Button>
+          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
         <BookingForm
           handleSubmit={getReservationByMobile}
           initialValues={initialValues}
@@ -80,7 +99,7 @@ const validationSchema = Yup.object({
           fields={getReservationsFields}
         />
         {renderBookings()}
-      </div>
+      </ section>
     );
   };
 

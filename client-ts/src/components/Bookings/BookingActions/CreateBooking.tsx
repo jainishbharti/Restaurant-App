@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { setSubmittingFunction } from "../Forms/BookingForm";
 import axios from "axios";
 import { useState } from "react";
-import { Alert, Stack } from "@mui/material";
+import { Alert, Button, Stack, Typography } from "@mui/material";
 
 const validationSchema = Yup.object({
   userName: Yup.string().required("Your name is required!"),
@@ -80,7 +80,26 @@ export const CreateBooking = () => {
   };
 
   return (
-    <div>
+    <section>
+      <Button
+          sx={{
+            border: "2px solid darkgray",
+            borderRadius: 2,
+            height: "auto",
+            py: 1,
+            px: 2,
+            marginTop: '2rem'
+          }}
+        >
+          <Typography
+            variant="h6"
+            component="span"
+            sx={{ fontWeight: 550, color: "darkslategray" }}
+          >
+            Make a Reservation
+          </Typography>
+        </Button>
+          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
       {error.error ? (
         <Stack
           sx={{ width: "18%", margin: "auto", marginTop: "1rem" }}
@@ -114,6 +133,6 @@ export const CreateBooking = () => {
         validationSchema={validationSchema}
         fields={fields}
       />
-    </div>
+    </section>
   );
 };

@@ -25,7 +25,7 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
   const { reservationId, mobile, seats, table, userName } = booking;
   return (
     <Box>
-      <Card sx={{ width: 300, margin: "2rem", textAlign: "left" }}>
+      <Card sx={{ width: 350, margin: "2rem", textAlign: "left", borderRadius: "8px" }}>
         <CardContent>
           <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             Table No: {table.tableId}
@@ -47,7 +47,7 @@ export const BookingCard = ({ booking }: BookingCardProps) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to={`/bookings/update/${reservationId}`}>
+          <Link to={`/bookings/update/${reservationId}`} style={{textDecoration: 'none'}}>
             <Button size="small" variant="outlined">
               Edit Booking
             </Button>
