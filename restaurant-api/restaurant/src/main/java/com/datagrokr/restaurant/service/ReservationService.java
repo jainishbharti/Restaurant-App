@@ -111,11 +111,18 @@ public class ReservationService {
     
     public Response removeReservation(String mobile) {
     	List<Reservation> reservationsToDelete = reservationRepo.findByMobile(mobile);
-    	reservationsToDelete.forEach((reservation) -> reservationTableRepo.disengageTableById(reservation.getTable().getTableId()));
-    	reservationRepo.deleteByMobile(mobile);
-    	return Response.status(Response.Status.OK)
-    			.entity("All bookings from "+ mobile +" removed!")
-    			.build();
+    	if(reservationsToDelete!=null && reservationsToDelete.size() >= 1) {
+    		reservationsToDelete.forEach((reservation) -> reservationTableRepo.disengageTableById(reservation.getTable().getTableId()));
+        	reservationRepo.deleteByMobile(mobile);
+        	return Response.status(Response.Status.OK)
+        			.entity("All bookings from "+ mobile +" removed!")
+        			.build();
+    	} else {
+    		return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+        			.entity("No bookings found from "+ mobile +"!")
+        			.build();
+    	}
+    	
     }
     
     public List<Reservation> getReservationsByMobile(String mobile) {
