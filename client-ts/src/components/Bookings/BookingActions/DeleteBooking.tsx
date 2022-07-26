@@ -58,7 +58,7 @@ export const DeleteBooking = () => {
 
 
   return (
-    <section>
+    <section data-testid="delete-booking">
       <Button
           sx={{
             border: "2px solid darkgray",

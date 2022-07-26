@@ -58,7 +58,7 @@ export const NavBar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ marginBottom: 0 }}>
+    <AppBar data-testid="navBar" position="static" sx={{ marginBottom: 0 }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <RestaurantMenuIcon />

@@ -3,7 +3,7 @@ import ArrowCircleDownIcon from "@mui/icons-material/ArrowCircleDown";
 
 export const Banner = () => {
   return (
-    <Box className="banner" sx={{ margin: "4rem" }}>
+    <Box data-testid="banner" className="banner" sx={{ margin: "4rem" }}>
       <Box
         sx={{ background: "rgba(0, 0, 0, 0.567)", padding: "2rem 2rem", borderRadius: '5rem 0 5rem 0', width:'60vw', margin:'auto' }}
       >

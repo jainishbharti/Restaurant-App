@@ -73,13 +73,6 @@ export const UpdateBooking = () => {
         .get(`/bookings/${reservationId}`)
         .then((res) => {
           if (res.status === 200) {
-            // const { userName, mobile, seats, timeOfReservation } = res.data;
-            // setFormValues({
-            //   userName,
-            //   mobile,
-            //   seats: seats.toString(),
-            //   timeOfReservation,
-            // });
             setFormData(res.data);
             setBooking(res.data);
           }
@@ -137,7 +130,7 @@ export const UpdateBooking = () => {
   }
 
   return (
-    <section>
+    <section data-testid="update-booking">
       <Button
           sx={{
             border: "2px solid darkgray",

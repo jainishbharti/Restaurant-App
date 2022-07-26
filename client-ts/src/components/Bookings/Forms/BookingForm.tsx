@@ -41,7 +41,7 @@ export const BookingForm = ({
   const [error] = useState("");
 
   return (
-    <div>
+    <div data-testid="booking-form">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}

@@ -80,7 +80,7 @@ export const CreateBooking = () => {
   };
 
   return (
-    <section>
+    <section data-testid="create-booking">
       <Button
           sx={{
             border: "2px solid darkgray",
