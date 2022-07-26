@@ -101,16 +101,12 @@ textarea {
 section{
   background-image: url('https://mui.com/static/themes/onepirate/productCurvyLines.png');
   background-color: rgba(233, 241, 241, 0.29);
-  height: 68vh;
+  min-height: 68vh;
 }
 
 .footer{
   position:static;
   width: 100%;
-  bottom: 0;
-  left:0;
-  right: 0;
-  top: auto
 }
 
 @media only screen and (max-width: 600px) {
