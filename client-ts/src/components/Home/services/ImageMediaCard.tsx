@@ -8,7 +8,7 @@ import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
 
 type ImageMediaCardProps = {
   service: {
-    buttons: string[];
+    button: { title: string; href: string };
     title: string;
     description: string;
   };
@@ -16,7 +16,14 @@ type ImageMediaCardProps = {
 
 export default function ImageMediaCard({ service }: ImageMediaCardProps) {
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: '40px', padding: '1rem', backgroundColor:"#FAFAFA" }} >
+    <Card
+      sx={{
+        maxWidth: 345,
+        borderRadius: "40px",
+        padding: "1rem",
+        backgroundColor: "#FAFAFA",
+      }}
+    >
       <CardContent>
         <RestaurantMenuIcon fontSize="large" />
         <Typography
@@ -34,9 +41,10 @@ export default function ImageMediaCard({ service }: ImageMediaCardProps) {
           species, ranging across all continents except Antarctica
         </Typography>
       </CardContent>
-      <CardActions sx={{ justifyContent: 'center'}}>
-        <Button variant="outlined" size="small">Share</Button>
-        <Button variant="outlined" size="small">Learn More</Button>
+      <CardActions sx={{ justifyContent: "center" }}>
+        <Button href={service.button.href} variant="outlined" size="small">
+          {service.button.title}
+        </Button>
       </CardActions>
     </Card>
   );

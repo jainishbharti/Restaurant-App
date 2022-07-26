@@ -1,25 +1,25 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import { LandingPage } from "./pages/LandingPage";
-import { CreateBooking } from "./components/Bookings/BookingActions/CreateBooking";
 import { DeleteBooking } from "./components/Bookings/BookingActions/DeleteBooking";
-import { Bookings } from "./components/Bookings/Bookings";
 import { MobileBookings } from "./components/Bookings/MobileBookings";
 import { UpdateBooking } from "./components/Bookings/BookingActions/UpdateBooking";
 import { NavBar } from "./components/NavBar/NavBar";
 import { HomePage } from "./pages/HomePage";
 import AppFooter from "./components/Footer/AppFooter";
+import { CreateBookingPage } from "./pages/CreateBookingPage";
+import { BookingsPage } from "./pages/BookingsPage";
+import { BookingsByMobilePage } from "./pages/BookingsByMobilePage";
 
-function App() {
+function Router() {
   return (
     <div className="App">
       <NavBar />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/bookings/add" element={<CreateBooking />} />
-          <Route path="/bookings" element={<Bookings /> } />
-          <Route path="/bookings/mobile" element={<MobileBookings /> } />
+          <Route path="/bookings/add" element={<CreateBookingPage />} />
+          <Route path="/bookings" element={<BookingsPage /> } />
+          <Route path="/bookings/mobile" element={<BookingsByMobilePage /> } />
           <Route path="/bookings/update" element={<MobileBookings />} />
           <Route path="/bookings/update/:reservationId"  element={<UpdateBooking />} />
           <Route path="/bookings/delete" element={<DeleteBooking /> } />
@@ -30,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default Router;

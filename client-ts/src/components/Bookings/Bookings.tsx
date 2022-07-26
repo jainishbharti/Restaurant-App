@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BookingCard } from "./BookingCard";
 import axios from "axios";
+import { Button, Typography } from "@mui/material";
 
 export const Bookings = () => {
   const [bookings, setBookings] = useState([
@@ -33,8 +34,29 @@ export const Bookings = () => {
   });
 
   return (
-    <div className="flex" style={{ margin: "auto" }}>
-      {renderBookings}
-    </div>
+    <section>
+      <Button
+          sx={{
+            border: "2px solid darkgray",
+            borderRadius: 2,
+            height: "auto",
+            py: 1,
+            px: 2,
+            marginTop: '2rem'
+          }}
+        >
+          <Typography
+            variant="h6"
+            component="span"
+            sx={{ fontWeight: 550, color: "darkslategray" }}
+          >
+            Bookings for tonight
+          </Typography>
+        </Button>
+          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
+      <div className="flex" style={{ margin: "auto", height: 'auto' }}>
+        {renderBookings}
+      </div>
+    </section>
   );
 };

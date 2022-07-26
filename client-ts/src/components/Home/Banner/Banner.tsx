@@ -50,8 +50,8 @@ export const Banner = () => {
           Discover the experience!
         </Button>
       </Box>
-      <Box className="desc" sx={{ marginTop: "2rem" }}>
-        <ArrowCircleDownIcon />
+      <Box className="desc" sx={{ marginTop: "2rem", color: 'white' }}>
+        <ArrowCircleDownIcon fontSize="large"/>
       </Box>
     </Box>
   );
