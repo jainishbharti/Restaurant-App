@@ -132,6 +132,7 @@ export const NavBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Bookings">
               <IconButton
+                role="openDropdown"
                 onClick={handleOpenUserMenu}
                 sx={{ p: 0, color: "white" }}
               >

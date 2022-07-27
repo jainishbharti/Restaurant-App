@@ -89,11 +89,11 @@ export const UpdateBooking = () => {
     { setSubmitting, resetForm }: setSubmittingFunction
   ) => {
     const { userName, mobile, seats, timeOfReservation } = values;
-    if (typeof seats !== "undefined") {
+    // if (typeof seats !== "undefined") {
       const formData = {
         userName,
         mobile,
-        seats: parseInt(seats),
+        seats,
         timeOfReservation
       };
 
@@ -113,7 +113,7 @@ export const UpdateBooking = () => {
             setError({ error: "Something went wrong. Try booking again!" });
           }
         });  
-    }
+    // }
     setSubmitting(false);
     resetForm();
   };

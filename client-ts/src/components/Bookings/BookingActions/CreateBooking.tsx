@@ -60,8 +60,6 @@ export const CreateBooking = () => {
         seats,
         timeOfReservation,
       };
-      console.log(formData);
-      console.log(typeof formData.seats);
       axios
         .post("/bookings", formData)
         .then((res) => {
