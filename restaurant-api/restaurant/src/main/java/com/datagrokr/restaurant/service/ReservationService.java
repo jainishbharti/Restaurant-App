@@ -58,18 +58,21 @@ public class ReservationService {
         		ReservationTable vacantTable = reservationTableRepo.getTwoSeaterVacantTables();
         		if(vacantTable == null) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! No table for two available tonight!").build();
         		reservation.setTable(vacantTable);
-        		reservationTableRepo.engageTableById(vacantTable.getTableId());
+//        		reservationTableRepo.engageTableById(vacantTable.getTableId());
         	}
         	if(reservation.getSeats() == 4) {
         		ReservationTable vacantTable = reservationTableRepo.getFourSeaterVacantTables();
         		if(vacantTable == null) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Sorry! No table for four available tonight!").build();
         		reservation.setTable(vacantTable);
-        		reservationTableRepo.engageTableById(vacantTable.getTableId());
+//        		reservationTableRepo.engageTableById(vacantTable.getTableId());
         	}
 
             Reservation createdReservation = reservationRepo.addReservation(reservation);
             if(createdReservation == null) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Something went wrong while creating reservation!").build();
-            else return Response.status(Response.Status.ACCEPTED).entity(createdReservation).build();
+            else {
+        		reservationTableRepo.engageTableById(createdReservation.getTable().getTableId());
+            	return Response.status(Response.Status.ACCEPTED).entity(createdReservation).build();
+            }
         }
     }
     
@@ -89,13 +92,13 @@ public class ReservationService {
            		if(reservation.getSeats() == 4) {
                		ReservationTable vacantTable = reservationTableRepo.getFourSeaterVacantTables();
                		reservation.setTable(vacantTable);
-               		reservationTableRepo.engageTableById(vacantTable.getTableId());
+//               		reservationTableRepo.engageTableById(vacantTable.getTableId());
                	}
            		
            		if(reservation.getSeats() == 2) {
                		ReservationTable vacantTable = reservationTableRepo.getTwoSeaterVacantTables();
                		reservation.setTable(vacantTable);
-               		reservationTableRepo.engageTableById(vacantTable.getTableId());
+//               		reservationTableRepo.engageTableById(vacantTable.getTableId());
                	}
            	} else if(reservation.getSeats() == olderReservation.getSeats()) {
            		Reservation updatedReservation = reservationRepo.updateReservation(reservation);
@@ -105,17 +108,27 @@ public class ReservationService {
 
                Reservation updatedReservation = reservationRepo.updateReservation(reservation);
                if(updatedReservation == null) return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Something went wrong while updating reservation. Please try again!").build();
-               else return Response.status(Response.Status.OK).entity(updatedReservation).build();
+               else {
+            	   reservationTableRepo.engageTableById(updatedReservation.getTable().getTableId());
+            	   return Response.status(Response.Status.OK).entity(updatedReservation).build();
+               }
            }	
     }
     
     public Response removeReservation(String mobile) {
     	List<Reservation> reservationsToDelete = reservationRepo.findByMobile(mobile);
-    	reservationsToDelete.forEach((reservation) -> reservationTableRepo.disengageTableById(reservation.getTable().getTableId()));
-    	reservationRepo.deleteByMobile(mobile);
-    	return Response.status(Response.Status.OK)
-    			.entity("All bookings from "+ mobile +" removed!")
-    			.build();
+    	if(reservationsToDelete!=null && reservationsToDelete.size() >= 1) {
+    		reservationsToDelete.forEach((reservation) -> reservationTableRepo.disengageTableById(reservation.getTable().getTableId()));
+        	reservationRepo.deleteByMobile(mobile);
+        	return Response.status(Response.Status.OK)
+        			.entity("All bookings from "+ mobile +" removed!")
+        			.build();
+    	} else {
+    		return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+        			.entity("No bookings found from "+ mobile +"!")
+        			.build();
+    	}
+    	
     }
     
     public List<Reservation> getReservationsByMobile(String mobile) {
