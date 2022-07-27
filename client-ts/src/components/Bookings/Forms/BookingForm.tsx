@@ -95,7 +95,7 @@ export const BookingForm = ({
                       <option value={parseInt("1")}>1</option>
                       <option value={parseInt("2")}>2</option>
                       <option value={parseInt("3")}>3</option>
-                      <option value={parseInt("4")}>4</option>
+                      <option value="4">4</option>
                     </Field>
                     <ErrorMessage
                       name={element.name}

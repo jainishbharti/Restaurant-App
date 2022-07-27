@@ -53,18 +53,22 @@ export const CreateBooking = () => {
     { setSubmitting }: setSubmittingFunction
   ) => {
     const { userName, mobile, seats, timeOfReservation } = values;
-    if (typeof seats !== "undefined") {
+    // if (typeof seats !== undefined) {
       const formData = {
         userName,
         mobile,
-        seats: parseInt(seats),
+        seats,
         timeOfReservation,
       };
+      console.log(formData);
+      console.log(typeof formData.seats);
       axios
         .post("/bookings", formData)
         .then((res) => {
           if (res.status === 202) {
-            setMessage({ message: "Reservation created successfully!" });
+            setMessage({
+              message: `Booking confirmed. You're assigned to Table ${res.data.table.tableId}`,
+            });
           }
         })
         .catch((err) => {
@@ -74,7 +78,7 @@ export const CreateBooking = () => {
             setError({ error: "Something went wrong. Try booking again!" });
           }
         });
-    }
+    // }
 
     setSubmitting(false);
   };
@@ -82,30 +86,42 @@ export const CreateBooking = () => {
   return (
     <section data-testid="create-booking">
       <Button
-          sx={{
-            border: "2px solid darkgray",
-            borderRadius: 2,
-            height: "auto",
-            py: 1,
-            px: 2,
-            marginTop: '2rem'
-          }}
+        sx={{
+          border: "2px solid darkgray",
+          borderRadius: 2,
+          height: "auto",
+          py: 1,
+          px: 2,
+          marginTop: "2rem",
+        }}
+      >
+        <Typography
+          variant="h6"
+          component="span"
+          sx={{ fontWeight: 550, color: "darkslategray" }}
         >
-          <Typography
-            variant="h6"
-            component="span"
-            sx={{ fontWeight: 550, color: "darkslategray" }}
-          >
-            Make a Reservation
-          </Typography>
-        </Button>
-          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
+          Make a Reservation
+        </Typography>
+      </Button>
+      <div
+        style={{
+          width: "200px",
+          color: "red",
+          height: "3px",
+          background: "red",
+          margin: "auto",
+          marginTop: "10px",
+          marginBottom: "2rem",
+        }}
+      ></div>
       {error.error ? (
         <Stack
           sx={{ width: "18%", margin: "auto", marginTop: "1rem" }}
           spacing={1}
         >
-          <Alert severity="warning" onClose={() => setError({ error: "" })}>{error.error}</Alert>
+          <Alert severity="warning" onClose={() => setError({ error: "" })}>
+            {error.error}
+          </Alert>
         </Stack>
       ) : (
         ""
