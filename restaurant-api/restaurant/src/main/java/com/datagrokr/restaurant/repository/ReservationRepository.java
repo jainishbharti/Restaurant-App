@@ -42,7 +42,9 @@ public class ReservationRepository {
 	}
 	
 	public Reservation findByReservationId(Integer reservationId) {
-		return this.entityManager.find(Reservation.class, reservationId);
+		Reservation foundReservation = entityManager.find(Reservation.class, reservationId);
+		if(foundReservation == null) return null;
+		else return foundReservation;
 	}
 	
 	public List<Reservation> findByMobile(String mobileNumber){
