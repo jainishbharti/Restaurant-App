@@ -14,6 +14,29 @@ describe("testing createBooking", () => {
     expect(screen.getByTestId("create-booking")).toBeInTheDocument();
   });
 
+  test("checking validation", async () => {
+    render(<CreateBooking />);
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async() => {
+      fireEvent.change(screen.getByLabelText('Name'), {target: {value: ''}})
+      fireEvent.change(screen.getByLabelText('Mobile'), {target: {value: 'abcdefgh'}})
+      fireEvent.change(screen.getByLabelText('Time of Reservation'), {target: {value: ''}})
+      userEvent.selectOptions(screen.getByTestId('selectSeats'), [''])
+    })
+
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async() => {
+      fireEvent.click(screen.getByRole('bookingAction'))
+    })
+
+    expect(screen.getByText('Your name is required!')).toBeInTheDocument();
+    expect(screen.getByText('Phone number is not valid')).toBeInTheDocument();
+    expect(screen.getByText('Time of reservation is required!')).toBeInTheDocument();
+    expect(screen.getByText('Seats is required!')).toBeInTheDocument();
+
+  })
+
   test("making a successfull  reservation", async () => {
     render(<CreateBooking />);
 
@@ -53,7 +76,7 @@ describe("testing createBooking", () => {
 
   });
 
-  test("check for error message", async () => {
+  test("check for error message with status 500", async () => {
     render(<CreateBooking />);
 
 
@@ -76,6 +99,33 @@ describe("testing createBooking", () => {
 
     expect(
       screen.getByText("You can not book after 8 PM")
+    ).toBeInTheDocument();
+
+  });
+
+  test("check for error message with status 404", async () => {
+    render(<CreateBooking />);
+
+
+    const error = { response: {data: 'Something went wrong. Please try again!', status: 404} };
+    mockedAxios.post.mockRejectedValue(error);
+
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async() => {
+      fireEvent.change(screen.getByLabelText('Name'), {target: {value: 'jainish'}})
+      fireEvent.change(screen.getByLabelText('Mobile'), {target: {value: '5213658974'}})
+      fireEvent.change(screen.getByLabelText('Time of Reservation'), {target: {value: '2022-07-27T20:15'}})
+      userEvent.selectOptions(screen.getByTestId('selectSeats'), ['4'])
+    })
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async() => {
+      fireEvent.click(screen.getByRole('bookingAction'))
+    })
+
+    expect(
+      screen.getByText("Something went wrong. Try booking again!")
     ).toBeInTheDocument();
 
   });

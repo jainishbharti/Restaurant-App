@@ -11,6 +11,24 @@ describe("testing deleteBooking", () => {
     expect(screen.getByTestId("delete-booking")).toBeInTheDocument();
   });
 
+  test("checking validation", async () => {
+    render(<DeleteBooking />);
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText("Mobile"), {
+        target: { value: "abcdefgh" },
+      });
+    });
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(screen.getByRole("bookingAction"));
+    });
+
+    expect(screen.getByText("Phone number is not valid")).toBeInTheDocument();
+  });
+
   test("deleting reservation successfully", async () => {
     render(<DeleteBooking />);
 
@@ -34,11 +52,12 @@ describe("testing deleteBooking", () => {
     ).toBeInTheDocument();
   });
 
-
   test("when it cannot find the reservation", async () => {
     render(<DeleteBooking />);
 
-    const err = {response : { data: "No bookings found from 9102243139!", status: 500 }};
+    const err = {
+      response: { data: "No bookings found from 9102243139!", status: 500 },
+    };
     mockedAxios.delete.mockRejectedValue(err);
 
     // eslint-disable-next-line testing-library/no-unnecessary-act
@@ -58,5 +77,31 @@ describe("testing deleteBooking", () => {
     ).toBeInTheDocument();
   });
 
+  test("when something went during sending the request", async () => {
+    render(<DeleteBooking />);
 
+    const err = {
+      response: {
+        data: "Something went wrong. Try deleting again!",
+        status: 404,
+      },
+    };
+    mockedAxios.delete.mockRejectedValue(err);
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText("Mobile"), {
+        target: { value: "9102243139" },
+      });
+    });
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(screen.getByRole("bookingAction"));
+    });
+
+    expect(
+      screen.getByText("Something went wrong. Try deleting again!")
+    ).toBeInTheDocument();
+  });
 });

@@ -12,7 +12,7 @@ type initialValueProps = {
 const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 const validationSchema = Yup.object({
-  mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').length(10, "Mobile must be length 10"),
+  mobile: Yup.string().required("Mobile is required").matches(phoneRegExp, 'Phone number is not valid').length(10, "Mobile must be length 10"),
 });
 
 const initialValues = {
@@ -49,7 +49,7 @@ export const DeleteBooking = () => {
         if (err.response.status === 500) {
           setError({ error: err.response.data });
         } else {
-          setError({ error: "Something went wrong. Try booking again!" });
+          setError({ error: "Something went wrong. Try deleting again!" });
         }
       });
   

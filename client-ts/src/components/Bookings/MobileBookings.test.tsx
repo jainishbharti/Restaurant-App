@@ -8,9 +8,47 @@ const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 
 describe("testing mobileBookings", () => {
+
+
   test("render mobileBookings", () => {
     render(<MobileBookings />);
     expect(screen.getByTestId("getByMobile")).toBeInTheDocument();
+  });
+
+  test("checking validation of valid phone type", async () => {
+    render(<MobileBookings />);
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText("Mobile"), {
+        target: { value: "abcdefgh" },
+      });
+    });
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(screen.getByRole("bookingAction"));
+    });
+
+    expect(screen.getByText("Phone number is not valid")).toBeInTheDocument();
+  });
+
+  test("checking validation of required phone", async () => {
+    render(<MobileBookings />);
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.change(screen.getByLabelText("Mobile"), {
+        target: { value: "" },
+      });
+    });
+
+    // eslint-disable-next-line testing-library/no-unnecessary-act
+    await act(async () => {
+      fireEvent.click(screen.getByRole("bookingAction"));
+    });
+
+    expect(screen.getByText("Mobile is required!")).toBeInTheDocument();
   });
 
   test("render bookings by mobile successfully", async () => {

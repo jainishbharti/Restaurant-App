@@ -38,6 +38,33 @@ describe("testing updateBooking", () => {
     expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
+
+
+  // test("checking validation", async () => {
+  //   render(<UpdateBooking />);
+
+  //   // eslint-disable-next-line testing-library/no-unnecessary-act
+  //   await act(async() => {
+  //     fireEvent.change(screen.getByLabelText('Name'), {target: {value: ''}})
+  //     fireEvent.change(screen.getByLabelText('Mobile'), {target: {value: 'abcdefgh'}})
+  //     fireEvent.change(screen.getByLabelText('Time of Reservation'), {target: {value: ''}})
+  //     userEvent.selectOptions(screen.getByTestId('selectSeats'), [''])
+  //   })
+
+  //       // eslint-disable-next-line testing-library/no-unnecessary-act
+  //   await act(async() => {
+  //     fireEvent.click(screen.getByRole('bookingAction'))
+  //   })
+
+  //   expect(screen.getByText('Your name is required!')).toBeInTheDocument();
+  //   expect(screen.getByText('Phone number is not valid')).toBeInTheDocument();
+  //   expect(screen.getByText('Time of reservation is required!')).toBeInTheDocument();
+  //   expect(screen.getByText('Seats is required!')).toBeInTheDocument();
+
+  // })
+
+
+
   test("updating reservation successfully", async () => {
     const results = {
       mobile: "9102243139",

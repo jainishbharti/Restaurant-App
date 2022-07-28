@@ -11,7 +11,7 @@ const validationSchema = Yup.object({
   userName: Yup.string().required("Your name is required!"),
   // mobile: Yup.number()
   //   .required("Mobile is required!").min(1234567890).max(9999999999),
-  mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').length(10, "Mobile must be length 10"),
+  mobile: Yup.string().required("Mobile is required!").matches(phoneRegExp, 'Phone number is not valid').length(10, "Mobile must be length 10"),
   seats: Yup.number().required("Seats is required!"),
   timeOfReservation: Yup.date().required("Time of reservation is required!"),
 });
