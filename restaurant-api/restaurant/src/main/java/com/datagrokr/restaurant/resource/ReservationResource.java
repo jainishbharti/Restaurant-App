@@ -34,7 +34,8 @@ public class ReservationResource {
 	@Path("/{id}")
 	public Response getReservation(@PathParam("id") Integer reservationId) {
 		Reservation reservation = reservationService.getReservation(reservationId);
-		return Response.status(Response.Status.OK).entity(reservation).build();
+		if(reservation != null) return Response.status(Response.Status.OK).entity(reservation).build();
+		else return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("No reservations found").build();
 	}
 	
 	@GET
