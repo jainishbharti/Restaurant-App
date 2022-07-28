@@ -5,11 +5,13 @@ import axios from "axios";
 import { useState } from "react";
 import { Alert, Button, Stack, Typography } from "@mui/material";
 
+const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
 const validationSchema = Yup.object({
   userName: Yup.string().required("Your name is required!"),
-  mobile: Yup.string()
-    .required("Mobile is required!")
-    .length(10, "Mobile no should be of length 10"),
+  // mobile: Yup.number()
+  //   .required("Mobile is required!").min(1234567890).max(9999999999),
+  mobile: Yup.string().matches(phoneRegExp, 'Phone number is not valid').length(10, "Mobile must be length 10"),
   seats: Yup.number().required("Seats is required!"),
   timeOfReservation: Yup.date().required("Time of reservation is required!"),
 });
