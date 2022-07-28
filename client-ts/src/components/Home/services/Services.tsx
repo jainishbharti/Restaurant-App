@@ -24,7 +24,7 @@ const services = [
 
 export const Services = () => {
   return (
-    <div className="services-fragment">
+    <div data-testid="actions" className="services-fragment">
       <Typography
         variant="h4"
         component="div"
@@ -56,7 +56,7 @@ export const Services = () => {
         }}
       >
         {services.map((service) => {
-          return <ImageMediaCard service={service} />;
+          return <ImageMediaCard key={service.title} service={service} />;
         })}
       </Box>
     </div>

@@ -5,7 +5,7 @@ import { Typography } from "@mui/material";
 
 function SmokingHero() {
   return (
-    <div className="smoking-hero">
+    <div data-testid="support" className="smoking-hero">
       <Container
         component="div"
         sx={{

@@ -34,27 +34,37 @@ export const Bookings = () => {
   });
 
   return (
-    <section>
+    <section data-testid="bookings">
       <Button
-          sx={{
-            border: "2px solid darkgray",
-            borderRadius: 2,
-            height: "auto",
-            py: 1,
-            px: 2,
-            marginTop: '2rem'
-          }}
+        sx={{
+          border: "2px solid darkgray",
+          borderRadius: 2,
+          height: "auto",
+          py: 1,
+          px: 2,
+          marginTop: "2rem",
+        }}
+      >
+        <Typography
+          variant="h6"
+          component="span"
+          sx={{ fontWeight: 550, color: "darkslategray" }}
         >
-          <Typography
-            variant="h6"
-            component="span"
-            sx={{ fontWeight: 550, color: "darkslategray" }}
-          >
-            Bookings for tonight
-          </Typography>
-        </Button>
-          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
-      <div className="flex" style={{ margin: "auto", height: 'auto' }}>
+          Bookings for tonight
+        </Typography>
+      </Button>
+      <div
+        style={{
+          width: "200px",
+          color: "red",
+          height: "3px",
+          background: "red",
+          margin: "auto",
+          marginTop: "10px",
+          marginBottom: "2rem",
+        }}
+      ></div>
+      <div className="flex" style={{ margin: "auto", height: "auto" }}>
         {renderBookings}
       </div>
     </section>

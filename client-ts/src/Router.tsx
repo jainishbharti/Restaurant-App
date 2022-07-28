@@ -12,7 +12,7 @@ import { BookingsByMobilePage } from "./pages/BookingsByMobilePage";
 
 function Router() {
   return (
-    <div className="App">
+    <div data-testid="routing" className="App">
       <NavBar />
       <BrowserRouter>
         <Routes>

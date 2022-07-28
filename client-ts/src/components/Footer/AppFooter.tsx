@@ -36,7 +36,7 @@ const LANGUAGES = [
 
 export default function AppFooter() {
   return (
-    <div className="footer">
+    <div data-testid="footer" className="footer">
         <Typography
       component="footer"
       sx={{ display: "flex", bgcolor: "rgba(223, 252, 252, 0.49)" }}

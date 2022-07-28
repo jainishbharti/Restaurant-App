@@ -1,4 +1,3 @@
-import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -16,7 +15,7 @@ type ImageMediaCardProps = {
 
 export default function ImageMediaCard({ service }: ImageMediaCardProps) {
   return (
-    <Card
+    <Card data-testid="service-card"
       sx={{
         maxWidth: 345,
         borderRadius: "40px",
@@ -42,8 +41,11 @@ export default function ImageMediaCard({ service }: ImageMediaCardProps) {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "center" }}>
-        <Button href={service.button.href} variant="outlined" size="small">
+        <Button variant="outlined" size="small">
+          {/* <Link href={service.button.href} underline="none" >{service.button.title}</Link> */}
+          <Typography variant="subtitle2" component="a" color="inherit" href={service.button.href} sx={{textDecoration: 'none'}}>
           {service.button.title}
+          </Typography>
         </Button>
       </CardActions>
     </Card>

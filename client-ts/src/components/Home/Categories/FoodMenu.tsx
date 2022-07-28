@@ -87,7 +87,7 @@ const images = [
 
 export const FoodMenu = () => {
   return (
-    <Box>
+    <Box data-testid="food-categories">
       <Container className="food" component="div" sx={{ mt: 8, mb: 4 }}>
       <Typography className='head' variant="h4" textAlign="center" align="center" component="h2" sx={{textTransform: 'uppercase', fontWeight: 600}}>
         For all tastes and all desires

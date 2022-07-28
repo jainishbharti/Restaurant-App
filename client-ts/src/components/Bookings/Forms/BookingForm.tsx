@@ -41,7 +41,7 @@ export const BookingForm = ({
   const [error] = useState("");
 
   return (
-    <div>
+    <div data-testid="booking-form">
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -85,6 +85,7 @@ export const BookingForm = ({
                       name={element.name}
                       label={element.label}
                       variant="outlined"
+                      data-testid='selectSeats'
                       sx={{
                         label: { color: "black" },
                         width: 300,
@@ -92,10 +93,10 @@ export const BookingForm = ({
                       }}
                     >
                       <option value="">No.of Seats</option>
-                      <option value={parseInt("1")}>1</option>
-                      <option value={parseInt("2")}>2</option>
-                      <option value={parseInt("3")}>3</option>
-                      <option value={parseInt("4")}>4</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
                     </Field>
                     <ErrorMessage
                       name={element.name}
@@ -109,7 +110,7 @@ export const BookingForm = ({
             {error && <p className="err-msg">{error}</p>}
 
             <Button
-              role="createBooking"
+              role="bookingAction"
               type="submit"
               disabled={isSubmitting}
               variant="contained"

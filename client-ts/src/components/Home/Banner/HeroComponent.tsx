@@ -1,9 +1,9 @@
-import { Background } from "./Banner/Background";
-import { Banner } from "./Banner/Banner";
+import { Background } from "./Background";
+import { Banner } from "./Banner";
 
 export const HeroComponent = () => {
   return (
-    <div>
+    <div data-testid="hero-comp">
       <Background>
         <Banner />
       </Background>

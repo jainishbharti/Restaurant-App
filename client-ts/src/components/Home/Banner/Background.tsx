@@ -6,7 +6,7 @@ type BackgroundProps = {
 
 export const Background = (props: BackgroundProps) => {
   return (
-    <Box className="bg">
+    <Box data-testid="bg" className="bg">
       <Box>{props.children}</Box>
     </Box>
   );

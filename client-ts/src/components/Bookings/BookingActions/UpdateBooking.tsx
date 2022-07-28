@@ -6,11 +6,14 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { Alert, Button, Stack, Typography } from "@mui/material";
 
+const phoneRegExp =
+  /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
 const validationSchema = Yup.object({
   userName: Yup.string().required("Your name is required!"),
   mobile: Yup.string()
-    .required("Mobile is required!")
-    .length(10, "Mobile no should be of length 10"),
+    .matches(phoneRegExp, "Phone number is not valid")
+    .length(10, "Mobile must be length 10"),
   seats: Yup.number().required("Seats is required!"),
   timeOfReservation: Yup.date().required("Time of reservation is required!"),
 });
@@ -73,20 +76,13 @@ export const UpdateBooking = () => {
         .get(`/bookings/${reservationId}`)
         .then((res) => {
           if (res.status === 200) {
-            // const { userName, mobile, seats, timeOfReservation } = res.data;
-            // setFormValues({
-            //   userName,
-            //   mobile,
-            //   seats: seats.toString(),
-            //   timeOfReservation,
-            // });
             setFormData(res.data);
             setBooking(res.data);
           }
         })
         .catch((err) => {
-         setError({error: "Error fetching previous booking details!"});
-         console.log(err);
+          setError({ error: "Error fetching previous booking details!" });
+          console.log(err);
         });
     }
   }, [reservationId]);
@@ -96,37 +92,41 @@ export const UpdateBooking = () => {
     { setSubmitting, resetForm }: setSubmittingFunction
   ) => {
     const { userName, mobile, seats, timeOfReservation } = values;
-    if (typeof seats !== "undefined") {
-      const formData = {
-        userName,
-        mobile,
-        seats: parseInt(seats),
-        timeOfReservation
-      };
+    // if (typeof seats !== "undefined") {
+    const formData = {
+      userName,
+      mobile,
+      seats,
+      timeOfReservation,
+    };
 
-      axios
-        .put(`/bookings/${booking.reservationId}`, formData)
-        .then((res) => {
-          if (res.status === 200) {
-            // console.log(res.data);
-            setFormData(res.data);
-            setMessage({ message: "Reservation updated successfully!" });
-          }
-        })
-        .catch((err) => {
-          if (err.response.status === 500) {
-            setError({ error: err.response.data });
-          } else {
-            setError({ error: "Something went wrong. Try booking again!" });
-          }
-        });  
-    }
+    axios
+      .put(`/bookings/${booking.reservationId}`, formData)
+      .then((res) => {
+        if (res.status === 200) {
+          setFormData(res.data);
+          setMessage({ message: "Reservation updated successfully!" });
+        }
+      })
+      .catch((err) => {
+        if (err.response.status === 500) {
+          setError({ error: err.response.data });
+        } else {
+          setError({ error: "Something went wrong. Try booking again!" });
+        }
+      });
+    // }
     setSubmitting(false);
     resetForm();
   };
 
-  const setFormData = ({userName, mobile, seats, timeOfReservation} : initialValueProps) =>{
-    if(typeof seats !== 'undefined'){
+  const setFormData = ({
+    userName,
+    mobile,
+    seats,
+    timeOfReservation,
+  }: initialValueProps) => {
+    if (typeof seats !== "undefined") {
       setFormValues({
         userName,
         mobile,
@@ -134,35 +134,47 @@ export const UpdateBooking = () => {
         timeOfReservation,
       });
     }
-  }
+  };
 
   return (
-    <section>
+    <section data-testid="update-booking">
       <Button
-          sx={{
-            border: "2px solid darkgray",
-            borderRadius: 2,
-            height: "auto",
-            py: 1,
-            px: 2,
-            marginTop: '2rem'
-          }}
+        sx={{
+          border: "2px solid darkgray",
+          borderRadius: 2,
+          height: "auto",
+          py: 1,
+          px: 2,
+          marginTop: "2rem",
+        }}
+      >
+        <Typography
+          variant="h6"
+          component="span"
+          sx={{ fontWeight: 550, color: "darkslategray" }}
         >
-          <Typography
-            variant="h6"
-            component="span"
-            sx={{ fontWeight: 550, color: "darkslategray" }}
-          >
-            Modify Reservation
-          </Typography>
-        </Button>
-          <div style={{width: '200px', color: 'red', height:'3px', background:'red', margin: 'auto', marginTop:'10px', marginBottom: '2rem'}}></div>
+          Modify Reservation
+        </Typography>
+      </Button>
+      <div
+        style={{
+          width: "200px",
+          color: "red",
+          height: "3px",
+          background: "red",
+          margin: "auto",
+          marginTop: "10px",
+          marginBottom: "2rem",
+        }}
+      ></div>
       {error.error ? (
         <Stack
           sx={{ width: "15%", margin: "auto", marginTop: "1rem" }}
           spacing={1}
         >
-          <Alert severity="warning" onClose={() => setError({ error: "" })}>{error.error}</Alert>
+          <Alert severity="warning" onClose={() => setError({ error: "" })}>
+            {error.error}
+          </Alert>
         </Stack>
       ) : (
         ""
@@ -183,17 +195,17 @@ export const UpdateBooking = () => {
       ) : (
         ""
       )}
-      {formValues ? (
-        <BookingForm
+      {
+        formValues && (
+          <BookingForm
           initialValues={formValues || initialValues}
           handleSubmit={onSubmit}
           updateValues={booking}
           validationSchema={validationSchema}
           fields={fields}
         />
-      ) : (
-        "Loading..."
-      )}
+        )
+      }
     </section>
   );
 };
