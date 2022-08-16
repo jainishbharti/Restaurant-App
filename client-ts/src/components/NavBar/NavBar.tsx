@@ -12,9 +12,23 @@ import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import CoPresentIcon from "@mui/icons-material/CoPresent";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import {  Link } from "@mui/material";
+import { Link } from "@mui/material";
 
-const pages = ["About", "Cuisines", "Reservations"];
+const pages = [
+  {
+    title: "About",
+    href: "#about",
+  },
+  {
+    title: "Cuisines",
+    href: "#cuisines",
+  },
+  {
+    title: "Make Reservation",
+    href: "/",
+  },
+];
+
 const settings = [
   {
     title: "Get your reservation",
@@ -110,8 +124,10 @@ export const NavBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" component="a" href={page.href} sx={{textDecoration: 'none'}}>
+                    {page.title}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -120,11 +136,13 @@ export const NavBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.title}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                <Typography textAlign="center" component="a" href={page.href} sx={{textDecoration: 'none', color: 'white', fontSize: '14px', fontWeight: '550'}}>
+                  {page.title}
+                </Typography>
               </Button>
             ))}
           </Box>
