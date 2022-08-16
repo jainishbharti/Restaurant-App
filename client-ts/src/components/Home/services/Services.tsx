@@ -24,7 +24,8 @@ const services = [
 
 export const Services = () => {
   return (
-    <div data-testid="actions" className="services-fragment">
+    <section id="about">
+      <div data-testid="actions" className="services-fragment">
       <Typography
         variant="h4"
         component="div"
@@ -60,5 +61,6 @@ export const Services = () => {
         })}
       </Box>
     </div>
+    </section>
   );
 };
