@@ -1,6 +1,8 @@
 package com.datagrokr.restaurant.repository;
 
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -21,6 +23,17 @@ public class ReservationTableRepository {
 		entityManager = emf.createEntityManager();	
 	}
 	
+	public List<ReservationTable> findAll(){
+		CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+		CriteriaQuery<ReservationTable> cq = cb.createQuery(ReservationTable.class);
+		Root<ReservationTable> root = cq.from(ReservationTable.class);
+		CriteriaQuery<ReservationTable> all = cq.select(root);
+		TypedQuery<ReservationTable> allQuery = entityManager.createQuery(all);
+		List<ReservationTable> result = allQuery.getResultList();
+		if(result.isEmpty()) return null;
+		else return result;
+	}
+	
 	public ReservationTable addReservationTable(ReservationTable reservationTable) {
 		entityManager.getTransaction().begin();
 		entityManager.persist(reservationTable);
@@ -37,6 +50,7 @@ public class ReservationTableRepository {
 		TypedQuery<ReservationTable> allQuery = entityManager.createQuery(all);
 		try {
 			ReservationTable vacantTable = (ReservationTable) allQuery.getResultList().get(0);
+			
 			if(vacantTable == null) return null;
 			else return vacantTable;
 		} catch (IndexOutOfBoundsException e) {

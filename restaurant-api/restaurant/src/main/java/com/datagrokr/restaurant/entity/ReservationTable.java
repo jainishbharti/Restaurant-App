@@ -2,8 +2,10 @@ package com.datagrokr.restaurant.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="reservation_table")
 public class ReservationTable {
 	
 	@Id
